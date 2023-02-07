@@ -1,7 +1,8 @@
 
 import Objective_22 as Obj_22
+import Objective_24 as Obj_24
 # --------------22 Задача
-
+'''
 size_1 = int(input('Введите размер первого множества: '))
 print('Сейчас вам предложат ввести значения для этого множества')
 lst_1 = Obj_22.Creat_list(size_1)
@@ -21,4 +22,11 @@ print(mnosh)
 mnosh = list(mnosh)
 mnosh.sort()
 print(mnosh)
+'''
+# -------------24
+
+clymba = Obj_24.Creat_gruda()
+print(clymba)
+result = Obj_24.Result(clymba)
+print(f'Куст № {result}')
 
