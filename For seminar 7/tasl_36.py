@@ -12,6 +12,29 @@
 #  4 8 12 16 20 24
 #  5 10 15 20 25 30
 #  6 12 18 24 30 36 
+# num_row = int(input('Введите кол-во строк: '))
+# num_col = int(input('Введите кол-во столбцов: '))
+
+# # creat_count_row_and_col = lambda x: [y for y in range(1,x + 1)]
+
+# operation = lambda x, y: print(f'элемент по номеру строки и столбца = {x*y}')
+
+# def print_operation_table(oper, num_r, num_c):
+#     creat_count_row_and_col = lambda x: [y for y in range(1,x + 1)]
+#     count_col = creat_count_row_and_col(num_r)
+#     count_row = creat_count_row_and_col(num_c)
+#     print(count_col, count_row, sep='x')
+
+#     for i in range(len(count_row)):
+#         for j in range(len(count_col)):
+#             print(count_row[i]*count_col[j], end=' ')
+#         print()
+#     num_x = int(input('Введите номер строки: '))
+#     num_y = int(input('Введите номер столбца: '))
+#     oper(num_x, num_y)
+
+# print_operation_table(operation,num_row,num_col)
+
 
 num_row = int(input('Введите кол-во строк: '))
 num_col = int(input('Введите кол-во столбцов: '))
