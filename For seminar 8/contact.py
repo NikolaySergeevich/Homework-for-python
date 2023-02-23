@@ -1,10 +1,15 @@
 #метод ввода числа
 def enter_num():
     try:
-        return int(input('Введите число: '))
+        return int(input('Введите номер задачи: '))
     except:
-        print('Введены некоретные данные, попробуйте ещё')
-
+        return print('\nВведены некоретные данные, попробуйте ещё')
+#метод ввода номера телефона
+def enter_num_pfone():
+    try:
+        return int(input('Введите номер телефона: '))
+    except:
+        return print('\nВведены некоретные данные, попробуйте ещё')
 #Метод вывода фио
 def enter_fyl_name():
     name = input('\nВведите ФИО: ')

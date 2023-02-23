@@ -72,4 +72,19 @@ def find_of_name():
 Введите 2 или 7 и выберите другой функционал.')
     except:
         print('\nЧто-то пошло не так.')
-        
+
+# Метод поиска контакта по номеру
+def find_of_number():
+    num = enter_num_pfone()
+    count = 0
+    for i in spravochnik:
+        for j in spravochnik[i]:
+            if num in spravochnik[i][j]:
+                count += 1
+                print(i)
+                for (p,g) in spravochnik[i].items():
+                    print(p, end=' ')
+                    print(*g, sep=',')
+                print()
+    if count == 0:
+        print('\nТаких нет в базе справочника')  

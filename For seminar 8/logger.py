@@ -21,6 +21,8 @@ def operate():
             show_sprav()
         elif num == 2:
             find_of_name()
+        elif num == 3:
+            find_of_number()
         elif num == 7:
             help()
         else:
