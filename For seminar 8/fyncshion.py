@@ -2,6 +2,11 @@ from random import *
 from contact import *
 import json
 global sprav
+
+# sprav = {"Пельмешов Руслан Викторович": {"рабочий:": [674756, 54321], "личный:": [88888, 76584], "почта:": ["nion@mail.ru"]},\
+# "Гурман Николай Сергеевич": {"рабочий:": [99999], "личный:": [232323], "почта:": ["napoleon@gmail.com"]},\
+# "Поттер Гарри Иванович": {"рабочий:": [666, 365987, 90890], "личный:": [343434], "почта:": ["hogvarz@tyt.by"]},\
+# "Вупкина Эльвира Максимовна": {"рабочий:": [8786], "личный:": [], "почта:": []}}
 sprav = {}
 spravochnik_about_client = {}
 lst_work_numbers = []
@@ -21,8 +26,8 @@ def load():
     print("Справочник был успешна загружен!")
 
 def start():
-    print('Здравстыуйте, я телефонный справочник. Меня зовут Pavl_Bot и я помогу вам найти,\n\
-внести нового контакта, какой-нибудт удалить или изменить уже существующий')
+    print('Здравстыуйте, вы открыли телефонный справочник. Меня зовут Pavl_Bot и я помогу вам найти,\n\
+внести нового контакта, удалить необходимый или изменить уже существующий')
     print()
     load()
 
@@ -42,6 +47,7 @@ def help():
 8 - Загрузить справочник с хронилища\n\
 9 - Сохранить справочник в хронилище\n\
 0 - Закончить работу со справочником\n\
+10 - Внесение изменений\n\
     '
     print(tex)
 
@@ -51,7 +57,7 @@ def show_sprav():
         print(k)
         for (p,g) in v.items():
             print(p, end='')
-            print(*g, sep=',')
+            print(*g, sep=', ')
         print()
 
 #Метод поиска по фио(раздельно по фио и нет. в любом регистре)
@@ -140,7 +146,7 @@ def creat_caes_contact():
 def add_phon_num():
     lst = []
     try:
-        print('\nДобавлять пользователю номер? 1 - да, 0 - нет')
+        print('\nДобавлять контакту номер? 1 - да, 0 - нет')
         pol = int(input('Введите число '))
         if pol == 1:
             lst.append(enter_num_pfone())
@@ -157,7 +163,7 @@ def add_phon_num():
 def add_hom_num():
     lst = []
     try:
-        print('\nДобавлять пользователю номер? 1 - да, 0 - нет')
+        print('\nДобавлять контакту номер? 1 - да, 0 - нет')
         pol = int(input('Введите число '))
         if pol == 1:
             lst.append(enter_num_pfone())
@@ -174,7 +180,7 @@ def add_hom_num():
 def add_email():
     lst = []
     try:
-        print('\nДобавлять пользователю Email? 1 - да, 0 - нет')
+        print('\nДобавлять контакту Email? 1 - да, 0 - нет')
         pol = int(input('Введите номер '))
         if pol == 1:
             lst.append(enter_email())
@@ -237,4 +243,234 @@ def delete_contact():
         print('С такими данными есть несколько контактов')
         print(*lst_for_delete, sep=', ')
         print('Попробуйте ещё, но уточните Данные(через пробел)')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# -------------------блок для внесения изменений-------------------
+
+
+
+# Метод внесений изменений
+def add_change():
+    try:
+        dopysk()
+        concretika()
+        if numb == 1:
+            chench_name()
+        elif numb == 2:
+            chench_phon(text='рабочий:')
+        elif numb == 3:
+            chench_phon(text='личный:')
+        elif numb == 4:
+            chench_email(text='почта:')
+    except:
+        print('Пробуйте ещё')
+    
+    
+
+
+
+#метод допуска к изменению
+def dopysk():
+    print('Укажите данные контакта, который хотите изменить')
+    find_of_name()
+    if len(lst_for_delete) == 1:
+        True
+    elif len(lst_for_delete) > 1:
+        print('С такими данными есть несколько контактов')
+        print(*lst_for_delete, sep=', ')
+        print('Попробуйте ещё, но уточните Данные(через пробел)')
+# Метод выбора что именно нужно изменить
+def concretika():
+    print('Выберете, что именно хотите изменить:\
+\n1 - ФИО\
+\n2 - Номер рабочего телефона\
+\n3 - Номер личного телефона\
+\n4 - Email\
+    ')
+    global numb
+    numb = enter_num()
+    if numb == 1 or numb == 2 or numb == 3 or numb == 4:
+        print('Идём дальше')
+
+# Метод изменения ФИО
+def chench_name():
+    new_name = creat_caes_contact()
+    sprav[new_name] = sprav[lst_for_delete[0]]
+    del sprav[lst_for_delete[0]]
+
+#Метод редактирования рабочего телефона
+def chench_phon(text = ''):
+    inform_of_case = sprav[lst_for_delete[0]]
+    lst_num = inform_of_case[text]
+    print('\nВот текущие номера телефонов:')
+    print(inform_of_case[text])
+    print('\nВыберете действие\
+\n1 - добавление\
+\n2 - изменение\
+\n3 - удаление\
+    ')
+    pod = enter_num()
+    if pod == 1:
+        lst_num.append(enter_num_pfone())
+        inform_of_case[text] = lst_num
+        print('Номер добавлен')
+
+
+    elif pod == 2:
+        if len(lst_num) == 0:
+            print('Номеров нет, поэтому просто дбавим.')
+            lst_num.append(enter_num_pfone())
+            inform_of_case[text] = lst_num
+            print('Номер добавлен')
+        elif len(lst_num) == 1:
+            lst_num[0] = enter_num_pfone()
+            inform_of_case[text] = lst_num
+            print('Номер изменён')
+        elif len(lst_num) > 1:
+            for i in range(len(lst_num)):
+                print(f'{lst_num[i]} Этот номер нужно изменять?\
+\n1 - да\
+\n0 - нет')
+                j = enter_num_pfone()
+                if j == 1:
+                    lst_num[i] = enter_num_pfone()
+                    print('Номер изменён')
+                elif j == 0:
+                    print('Идём дальше')
+            inform_of_case[text] = lst_num
+            print('Изменения внесены')
+
+
+    elif pod == 3:
+        if len(lst_num) == 0:
+            print('Номеров нет, поэтому удалить ничего не получится.')
+        elif len(lst_num) > 1:
+            print('Все номера нужно удалять?\
+\n1 - да\
+\n0 - нет')
+            j = enter_num_pfone()
+            if j == 1:
+                lst_num.clear()
+                inform_of_case[text] = lst_num
+                print('Номера все удалены')
+            elif j == 0:
+                for i in range(len(lst_num)):
+                    print(f'{lst_num[i]} Этот номер нужно удалять?\
+\n1 - да\
+\n0 - нет')
+                    j = enter_num_pfone()
+                    if j == 1:
+                        lst_num.remove(lst_num[i])
+                        print('Номер удалён')
+                    elif j == 0:
+                        print('Идём дальше')
+                inform_of_case[text] = lst_num
+                print('Изменения внесены')
+        elif len(lst_num) == 1:
+            print('Удалять номер?\
+\n1 - да\
+\n0 - нет')
+            j = enter_num_pfone()
+            if j == 1:
+                lst_num.clear()
+                inform_of_case[text] = lst_num
+                print('Номер удалён')
+            elif j == 0:
+                print('Номер удалён не будет')
+
+
+
+
+
+#Метод редактирования email
+def chench_email(text = ''):
+    inform_of_case = sprav[lst_for_delete[0]]
+    lst_em = inform_of_case[text]
+    print('\nВот текущие Email:')
+    print(inform_of_case[text])
+    print('\nВыберете действие\
+\n1 - добавление\
+\n2 - изменение\
+\n3 - удаление\
+    ')
+    pod = enter_num()
+    if pod == 1:
+        lst_em.append(enter_email())
+        inform_of_case[text] = lst_em
+        print('Email добавлен')
+
+
+    elif pod == 2:
+        if len(lst_em) == 0:
+            print('Email нет, поэтому просто дбавим.')
+            lst_em.append(enter_email())
+            inform_of_case[text] = lst_em
+            print('Email добавлен')
+        elif len(lst_em) == 1:
+            lst_em[0] = enter_email()
+            inform_of_case[text] = lst_em
+            print('Email изменён')
+        elif len(lst_em) > 1:
+            for i in range(len(lst_em)):
+                print(f'{lst_em[i]} Этот Email нужно изменять?\
+\n1 - да\
+\n0 - нет')
+                j = enter_num()
+                if j == 1:
+                    lst_em[i] = enter_email()
+                    print('Email изменён')
+                elif j == 0:
+                    print('Идём дальше')
+            inform_of_case[text] = lst_em
+            print('Изменения внесены')
+
+
+    elif pod == 3:
+        if len(lst_em) == 0:
+            print('Email нет, поэтому удалить ничего не получится.')
+        elif len(lst_em) > 1:
+            print('Все Email нужно удалять?\
+\n1 - да\
+\n0 - нет')
+            j = enter_num()
+            if j == 1:
+                lst_em.clear()
+                inform_of_case[text] = lst_em
+                print('Email все удалены')
+            elif j == 0:
+                for i in range(len(lst_em)):
+                    print(f'{lst_em[i]} Этот Email нужно удалять?\
+\n1 - да\
+\n0 - нет')
+                    j = enter_num()
+                    if j == 1:
+                        lst_em.remove(lst_em[i])
+                        print('Email удалён')
+                    elif j == 0:
+                        print('Идём дальше')
+                inform_of_case[text] = lst_em
+                print('Изменения внесены')
+        elif len(lst_em) == 1:
+            print('Удалять Email?\
+\n1 - да\
+\n0 - нет')
+            j = enter_num()
+            if j == 1:
+                lst_em.clear()
+                inform_of_case[text] = lst_em
+                print('Email удалён')
+            elif j == 0:
+                print('Email удалён не будет')
 

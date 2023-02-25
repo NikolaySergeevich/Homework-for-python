@@ -1,6 +1,7 @@
 from fyncshion import *
 from contact import *
 
+
 def beginning():
     
     try:
@@ -36,6 +37,8 @@ def operate():
             load()
         elif num == 9:
             save()
+        elif num == 10:
+            add_change()    
         elif num == 0:
             ending()
             break
