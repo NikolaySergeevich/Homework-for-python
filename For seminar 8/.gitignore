@@ -9,8 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
-.sprav.json
-
+Пример_вывода.png
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
